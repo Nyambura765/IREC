@@ -116,7 +116,7 @@ Transactions occur directly between buyers and sellers, with the marketplace fac
 
 ## Technical Stack
 
-- **Smart Contracts**: Solidity (v0.8.19)
+- **Smart Contracts**: Solidity (v0.8.20)
 - **Development Framework**: Hardhat
 - **Front-end**: React+TypeScript with vite and Viem +Wagmi + RainbowKit
 - **Styling**: Tailwind CSS
