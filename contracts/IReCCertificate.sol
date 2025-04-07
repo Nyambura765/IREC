@@ -115,7 +115,7 @@ contract IReCCertificate is ERC721URIStorage, Ownable {
         uint256 energyAmount,
         address owner
     ) {
-        require(msg.sender == tokenIdOwner[tokenId], "Certificate does not exist");
+        require(tokenIdOwner[tokenId] != address(0), "Certificate does not exist");
         
         CertificateData memory certData = certificates[tokenId];
         

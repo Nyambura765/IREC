@@ -7,11 +7,13 @@ export {};
 
 
 interface CertificateDetails {
+    facilityName: string;
+    energySource: string;
+    productionDate: number; 
+    expiryDate: number;
+    energyAmount: bigint;
+    owner: string;  
     
-    tokenId: bigint;
-    owner: string;
-    facility: string;
-    source: string;
 }
 
 // Set up public client
@@ -48,17 +50,35 @@ export async function getWalletClient(): Promise<WalletClientResult> {
     return { walletClient, address };
 }
 
-// Function to get certificate details
-export async function getCertificateDetails(tokenId: number, address: string): Promise<CertificateDetails> {
-    const result = await publicClient.readContract({
-        address: contractAddressIREC as `0x${string}`,
-        abi: contractABIIREC,
-        functionName: "getCertificateDetails",
-        args: [BigInt(tokenId)],
-        account: address as `0x${string}`,
-    }) as CertificateDetails;
-    
-    return result;
+export async function getCertificateDetails(tokenId: number): Promise<CertificateDetails> {
+    try {
+        // Get wallet client
+        await getWalletClient();
+        
+        // Call contract as the wallet owner
+        const data = await publicClient.readContract({
+            address: contractAddressIREC as `0x${string}`,
+            abi: contractABIIREC,
+            functionName: "getCertificateDetails",
+            args: [BigInt(tokenId)]
+        });
+        
+        // Format the response to match your interface
+        type CertificateData = [string, string, bigint, bigint, bigint, string];
+        const [facilityName, energySource, productionDate, expiryDate, energyAmount, owner] = data as CertificateData;
+        
+        return {
+            facilityName,
+            energySource,
+            productionDate: Number(productionDate),
+            expiryDate: Number(expiryDate),
+            energyAmount: BigInt(energyAmount.toString()),
+            owner
+        };
+    } catch (error) {
+        console.error("Error fetching certificate:", error);
+        throw new Error("Failed to fetch certificate details. Make sure you own this certificate.");
+    }
 }
 
 // Mint certificate function

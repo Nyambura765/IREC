@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\User\\Desktop\\irec\\contracts\\FractionalCertificateToken.sol": {
-      "lastModificationDate": 1743963368632,
-      "contentHash": "e52a80bdb69bc8cb2074af4948bbb361",
+      "lastModificationDate": 1744017654072,
+      "contentHash": "ef13a109d4fd5e8f0492e34c075becec",
       "sourceName": "contracts/FractionalCertificateToken.sol",
       "solcConfig": {
         "version": "0.8.28",
@@ -989,8 +989,8 @@
       ]
     },
     "C:\\Users\\User\\Desktop\\irec\\contracts\\IReCCertificate.sol": {
-      "lastModificationDate": 1743967000437,
-      "contentHash": "beba4c6b51c84643719bc0b89ee93e0b",
+      "lastModificationDate": 1744032380057,
+      "contentHash": "15998d01cda844dd113882c1efb73559",
       "sourceName": "contracts/IReCCertificate.sol",
       "solcConfig": {
         "version": "0.8.28",

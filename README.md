@@ -19,8 +19,7 @@ The project consists of three main smart contracts:
 1. **IRECCertificate.sol** - An ERC-721 implementation representing whole I-REC certificates
 2. **FractionalIREC.sol** - An ERC-20 implementation representing fractions of certificates
 3. **Marketplace.sol** - A marketplace for listing ,purchasing and selling tokens
-Smart Contracts Architecture
-The platform consists of three main contracts:
+
 ## 1. IReCCertificate.sol
 This is an ERC-721 NFT contract that represents renewable energy certificates.
 # Key Features:
@@ -110,7 +109,7 @@ Transactions occur directly between buyers and sellers, with the marketplace fac
 
 ## Deployed Contracts
 
-- **IRECCertificate Contract**: `0x0a59e43821a9fad62162C5Ae4854D9759696E37B`
+- **IRECCertificate Contract**: `0xF805e1cb33B6f3dbAd21bC8c554DD785986F7103`
 - **FractionalIREC Contract**: `0xB699bF620DA506529ace78E4F8A842B6D5c27B90`
 - **Marketplace contract**: `0x00e75e5C7458985B24b350359Ca4f8b1e80A71E1`
 

@@ -233,6 +233,7 @@ async function main() {
   
   console.log("\nContract addresses in JSON format:");
   console.log(JSON.stringify(deploymentInfo, null, 2));
+  
 }
 
 // Execute the deployment
@@ -241,4 +242,5 @@ main()
   .catch((error) => {
     console.error("Deployment failed:", error);
     process.exit(1);
-  });
+
+});
