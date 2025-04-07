@@ -112,7 +112,7 @@ Transactions occur directly between buyers and sellers, with the marketplace fac
 
 - **IRECCertificate Contract**: `0x0a59e43821a9fad62162C5Ae4854D9759696E37B`
 - **FractionalIREC Contract**: `0xB699bF620DA506529ace78E4F8A842B6D5c27B90`
--**Marketplace contract**: `0x00e75e5C7458985B24b350359Ca4f8b1e80A71E1`
+- **Marketplace contract**: `0x00e75e5C7458985B24b350359Ca4f8b1e80A71E1`
 
 ## Technical Stack
 
