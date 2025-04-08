@@ -3,6 +3,8 @@ import { sepolia } from 'viem/chains';
 import type { WalletClient } from 'viem';
 import { contractABIIREC, contractAddressIREC, contractABIMarketplace, contractAddressMarketplace, contractAddressFractionalCertificateToken, contractABIFractionalCertificateToken } from "./core";
 
+
+
 export {};
 
 
@@ -81,20 +83,47 @@ export async function getCertificateDetails(tokenId: number): Promise<Certificat
     }
 }
 
-// Mint certificate function
 export async function mintCertificate(
-    walletClient: WalletClient, 
-    tokenId: number, 
-    address: string
+    recipient: string,
+    baseURI: string,
+    facilityName: string,
+    energySource: string,
+    productionDate: number,
+    expiryDate: number,
+    newItemId: number
 ): Promise<`0x${string}`> {
+    const { walletClient } = await getWalletClient();
+    // Ensure the account making the transaction is used
+    const [account] = await walletClient.getAddresses();
+    
+    console.log("Minting certificate with params:", {
+        recipient,
+        baseURI,
+        facilityName,
+        energySource,
+        productionDate,
+        expiryDate,
+        newItemId
+    });
+    
     const result = await walletClient.writeContract({
         address: contractAddressIREC as `0x${string}`,
         abi: contractABIIREC,
         functionName: "mintCertificate",
-        args: [BigInt(tokenId), address],
+        args: [
+            recipient as `0x${string}`,
+            baseURI,
+            facilityName,
+            energySource,
+            BigInt(productionDate),
+            BigInt(expiryDate),
+            BigInt(newItemId)
+        ],
         chain: sepolia,
-        account: address as `0x${string}`,
+        account: account,
     });
+    
+    console.log("Mint transaction hash:", result);
     return result;
 }
 
@@ -143,6 +172,43 @@ export async function fractionalizeCertificate(
         abi: contractABIFractionalCertificateToken,
         functionName: "fractionalizeCertificate",
         args: [BigInt(tokenId), address],
+        chain: sepolia,
+        account: address as `0x${string}`,
+    });
+    return result;
+}
+//get fractional info
+export async function getFractionalInfo(): Promise<Record<string, unknown>> {
+    try {
+        // Get wallet client
+        await getWalletClient();
+        
+        // Call contract as the wallet owner
+        const data = await publicClient.readContract({
+            address: contractAddressFractionalCertificateToken as `0x${string}`,
+            abi: contractABIFractionalCertificateToken,
+            functionName: "getFractionalInfo",
+            args: []
+        }) as Record<string, unknown>;
+        
+        return data;
+    } catch (error) {
+        console.error("Error fetching fractional info:", error);
+        throw new Error("Failed to fetch fractional info. Make sure you own this certificate.");
+    }
+}
+//set approval
+export async function setApprovalForAll(
+    walletClient: WalletClient, 
+    operator: string, 
+    approved: boolean,
+    address: string
+): Promise<`0x${string}`> {
+    const result = await walletClient.writeContract({
+        address: contractAddressFractionalCertificateToken as `0x${string}`,
+        abi: contractABIFractionalCertificateToken,
+        functionName: "setApprovalForAll",
+        args: [operator, approved],
         chain: sepolia,
         account: address as `0x${string}`,
     });
